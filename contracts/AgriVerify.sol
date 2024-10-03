@@ -2,36 +2,44 @@
 pragma solidity ^0.8.0;
 
 contract AgriVerify {
-    struct Certification {
-        string cropName;
+    struct Crop {
+        string name;
         string farmName;
-        // uint120 pincode;
-        
         string location;
-        uint256 timestamp;
-        address farmer;
+        bool certified;
     }
 
-    event CropCertified(uint256 certId, address indexed farmer, string cropName, string farmName);
+    address public owner;
+    mapping(address => Crop) public crops;
 
-    Certification[] public certifications;
+    event CropCertified(address indexed farmer, string cropName);
 
-    function submitCertification(string memory cropName, string memory farmName, string memory location) public {
-        certifications.push(Certification({
-            cropName: cropName,
-            farmName: farmName,
-            location: location,
-            timestamp: block.timestamp,
-            farmer: msg.sender
-        }));
-
-        uint256 certId = certifications.length - 1;
-
-        emit CropCertified(certId, msg.sender, cropName, farmName);
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not authorized");
+        _;
     }
 
-    function getCertification(uint256 certId) public view returns (Certification memory) {
-        require(certId < certifications.length, "Certification does not exist");
-        return certifications[certId];
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function submitCertification(
+        string memory _cropName,
+        string memory _farmName,
+        string memory _location
+    ) public {
+        Crop memory newCrop = Crop({
+            name: _cropName,
+            farmName: _farmName,
+            location: _location,
+            certified: true
+        });
+
+        crops[msg.sender] = newCrop;
+        emit CropCertified(msg.sender, _cropName);
+    }
+
+    function getCropInfo(address farmer) public view returns (Crop memory) {
+        return crops[farmer];
     }
 }
