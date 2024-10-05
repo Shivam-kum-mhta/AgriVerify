@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+import QRcode from 'qrcode';
 import AgriVerifyContract from './contracts/AgriVerify.json';  // ABI from Hardhat deployment
-
 const App = () => {
   const [account, setAccount] = useState('');
   const [contract, setContract] = useState(null);
@@ -12,6 +12,7 @@ const App = () => {
   });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [certifications, setCertifications] = useState([]);
+
 
   useEffect(() => {
     const initBlockchain = async () => {
@@ -40,6 +41,7 @@ const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed
   }, []);
 
 
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -55,7 +57,11 @@ const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed
         await tx.wait();  
         alert('Certification request submitted!');
 
-        setCertifications([...certifications, formData]);
+const imgURL = await QRcode.toDataURL('https://localhost/account/certification/index')
+// img.save('qrcode.png')
+    setCertifications([...certifications, {...formData , img:imgURL}]);
+// img.show()
+        
 
         setFormData({ cropName: '', farmName: '', location: '' });
       } catch (error) {
@@ -110,6 +116,7 @@ const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed
               <p><strong>Crop Name:</strong> {cert.cropName}</p>
               <p><strong>Farmer Name:</strong> {cert.farmName}</p>
               <p><strong>Location:</strong> {cert.location}</p>
+              <p><strong>QR Code:</strong> <img src={cert.img} alt="QR Code" /></p>
             </div>
           ))}
           </div>
