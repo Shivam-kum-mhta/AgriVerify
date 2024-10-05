@@ -9,33 +9,23 @@ contract AgriVerify {
         bool certified;
     }
 
-    address public owner;
     mapping(address => Crop) public crops;
 
     event CropCertified(address indexed farmer, string cropName);
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not authorized");
-        _;
-    }
-
-    constructor() {
-        owner = msg.sender;
-    }
-
     function submitCertification(
-        string memory _cropName,
-        string memory _farmName,
-        string memory _location
+        string calldata _cropName,
+        string calldata _farmName,
+        string calldata _location
     ) public {
-        Crop memory newCrop = Crop({
+        // Memory efficiency for certification
+        crops[msg.sender] = Crop({
             name: _cropName,
             farmName: _farmName,
             location: _location,
             certified: true
         });
 
-        crops[msg.sender] = newCrop;
         emit CropCertified(msg.sender, _cropName);
     }
 

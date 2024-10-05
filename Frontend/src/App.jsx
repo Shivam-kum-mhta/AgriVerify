@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import AgriVerifyContract from './contracts/AgriVerify.json';  // ABI from Hardhat deployment
 
@@ -11,29 +11,34 @@ const App = () => {
     location: ''
   });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [certifications, setCertifications] = useState([]);
 
   useEffect(() => {
     const initBlockchain = async () => {
-      // Connect to Hardhat network via ethers
-      const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545'); // Local Hardhat RPC
-      const signer = provider.getSigner(0);  // Use the first account from Hardhat
-      const networkId = await provider.getNetwork();
+      try {    
+const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');       // HardHat localhost url
 
-      // Contract Address from Hardhat deployment
-      const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';
-      
-      // Initialize the contract
-      const agriContract = new ethers.Contract(contractAddress, AgriVerifyContract.abi, signer);
-      setContract(agriContract);
+const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
+        const contractAddress = '0x5fbdb2315678afecb367f032d93f642f64180aa3'; //  Deployed contract address (in Hardhat localhost)
+        const agriContract = new ethers.Contract(contractAddress, AgriVerifyContract.abi, signer);
 
-      // Get the public address from Hardhat
-      const address = await signer.getAddress();
-      setAccount(address);
-      setIsAuthenticated(true);
+        /**  Contract Address from Hardhat deployment
+             const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';  // Replace with your contract address
+            const agriContract = new ethers.Contract(contractAddress, AgriVerifyContract.abi, signer); **/
+
+          setContract(agriContract);
+
+        const address = await signer.getAddress();
+        setAccount(address);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Error connecting to the blockchain:', error);
+      }
     };
 
     initBlockchain();
   }, []);
+
 
   const handleChange = (e) => {
     setFormData({
@@ -46,10 +51,13 @@ const App = () => {
     e.preventDefault();
     if (contract) {
       try {
-        // Call the contract method to submit certification
         const tx = await contract.submitCertification(formData.cropName, formData.farmName, formData.location);
-        await tx.wait();  // Wait for the transaction to be mined
+        await tx.wait();  
         alert('Certification request submitted!');
+
+        setCertifications([...certifications, formData]);
+
+        setFormData({ cropName: '', farmName: '', location: '' });
       } catch (error) {
         console.error('Error submitting certification:', error);
       }
@@ -60,8 +68,8 @@ const App = () => {
     <div>
       <h1>AgriVerify: Farmer Onboarding</h1>
       {isAuthenticated ? (
-        <>
-          <p>Connected Account: {account}</p>
+      <>
+          <p>Account Connected: {account}</p>
           <form onSubmit={handleSubmit}>
             <div>
               <label>Crop Name: </label>
@@ -74,7 +82,7 @@ const App = () => {
               />
             </div>
             <div>
-              <label>Farm Name: </label>
+              <label>Farmer Name: </label>
               <input
                 type="text"
                 name="farmName"
@@ -95,7 +103,17 @@ const App = () => {
             </div>
             <button type="submit">Request Certification</button>
           </form>
-        </>
+          <div>
+          <h2>Certified Crops</h2>
+          {certifications.map((cert, index) => (
+            <div key={index}>
+              <p><strong>Crop Name:</strong> {cert.cropName}</p>
+              <p><strong>Farmer Name:</strong> {cert.farmName}</p>
+              <p><strong>Location:</strong> {cert.location}</p>
+            </div>
+          ))}
+          </div>
+      </>
       ) : (
         <p>Connecting to Hardhat Network...</p>
       )}
