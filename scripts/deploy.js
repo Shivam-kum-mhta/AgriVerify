@@ -14,7 +14,7 @@ async function main() {
     await agriVerify.deployed();
     console.log("AgriVerify deployed to:", agriVerify.address);
 
-    saveFrontendFiles(agriVerify);
+    // saveFrontendFiles(agriVerify);
 }
 
 main()

@@ -14,32 +14,41 @@ const App = () => {
   const [certifications, setCertifications] = useState([]);
 
 
+
+
   useEffect(() => {
-    const initBlockchain = async () => {
-      try {    
-const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');       // HardHat localhost url
+    const connectToMetaMask = async () => {
+      try {
+        // Check if MetaMask is installed
+        if (window.ethereum) {
+          // Request account access
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
-        const contractAddress = '0x5fbdb2315678afecb367f032d93f642f64180aa3'; //  Deployed contract address (in Hardhat localhost)
-        const agriContract = new ethers.Contract(contractAddress, AgriVerifyContract.abi, signer);
+          // Create an ethers provider from MetaMask
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        /**  Contract Address from Hardhat deployment
-             const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';  // Replace with your contract address
-            const agriContract = new ethers.Contract(contractAddress, AgriVerifyContract.abi, signer); **/
+          // Get the signer (user's account)
+          const signer = provider.getSigner();
 
+          // Set account address
+          const address = await signer.getAddress();
+          setAccount(address);
+          setIsAuthenticated(true);
+
+          // Set up contract interaction using signer
+          const contractAddress = '0x5fbdb2315678afecb367f032d93f642f64180aa3'; // Replace with your deployed contract address
+          const agriContract = new ethers.Contract(contractAddress, AgriVerifyContract.abi, signer);
           setContract(agriContract);
-
-        const address = await signer.getAddress();
-        setAccount(address);
-        setIsAuthenticated(true);
+        } else {
+          alert('MetaMask is not installed. Please install MetaMask.');
+        }
       } catch (error) {
-        console.error('Error connecting to the blockchain:', error);
+        console.error('Error connecting to MetaMask:', error);
       }
     };
 
-    initBlockchain();
+    connectToMetaMask();
   }, []);
-
 
 
   const handleChange = (e) => {
