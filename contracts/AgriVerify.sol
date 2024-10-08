@@ -3,33 +3,36 @@ pragma solidity ^0.8.0;
 
 contract AgriVerify {
     struct Crop {
+        uint256 cropId;
         string name;
-        string farmName;
-        string location;
+        uint256 timestamp;
         bool certified;
     }
 
-    mapping(address => Crop) public crops;
+    uint256 public cropIdCounter = 0;
 
-    event CropCertified(address indexed farmer, string cropName);
+    // Map an address to an array of crops
+    mapping(address => Crop[]) public crops;
 
-    function submitCertification(
-        string calldata _cropName,
-        string calldata _farmName,
-        string calldata _location
-    ) public {
-        // Memory efficiency for certification
-        crops[msg.sender] = Crop({
+    event CropCertified(address indexed farmer, string cropName, uint256 cropId);
+
+    function submitCertification(string calldata _cropName) public {
+        cropIdCounter++;
+
+        crops[msg.sender].push(Crop({
+            cropId: cropIdCounter,
             name: _cropName,
-            farmName: _farmName,
-            location: _location,
-            certified: true
-        });
+            timestamp: block.timestamp,
+            certified: true   // Initially, the crop is not certified
+        }));
 
-        emit CropCertified(msg.sender, _cropName);
+        emit CropCertified(msg.sender, _cropName, cropIdCounter);
     }
 
-    function getCropInfo(address farmer) public view returns (Crop memory) {
+
+    function getCropInfo(address farmer) public view returns (Crop[] memory) {
         return crops[farmer];
     }
+
+
 }

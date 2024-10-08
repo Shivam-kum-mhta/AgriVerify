@@ -1,44 +1,31 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import QRcode from 'qrcode';
-import AgriVerifyContract from './contracts/AgriVerify.json';  // ABI from Hardhat deployment
+import AgriVerifyABI from './contracts/AgriVerify.json';  // Import the ABI of the deployed contract
+
 const App = () => {
-  const [account, setAccount] = useState('');
-  const [contract, setContract] = useState(null);
-  const [formData, setFormData] = useState({
-    cropName: '',
-    farmName: '',
-    location: ''
-  });
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [certifications, setCertifications] = useState([]);
+  const [account, setAccount] = useState('');        
+  const [contract, setContract] = useState(null);    
+  const [cropName, setCropName] = useState('');      
+  const [certifiedCrops, setCertifiedCrops] = useState([]);  // To store the list of certified crops
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+  // Deployed contract address (Replace with your actual deployed contract address)
+  const contractAddress = '0x2fD926D5eF17514F8a7F4A7b41fd2904e1d97fA5';
 
-
-
-
+  // MetaMask Connection
   useEffect(() => {
     const connectToMetaMask = async () => {
       try {
-        // Check if MetaMask is installed
         if (window.ethereum) {
-          // Request account access
-          await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-          // Create an ethers provider from MetaMask
           const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-          // Get the signer (user's account)
           const signer = provider.getSigner();
-
-          // Set account address
           const address = await signer.getAddress();
           setAccount(address);
-          setIsAuthenticated(true);
 
-          // Set up contract interaction using signer
-          const contractAddress = '0x5fbdb2315678afecb367f032d93f642f64180aa3'; // Replace with your deployed contract address
-          const agriContract = new ethers.Contract(contractAddress, AgriVerifyContract.abi, signer);
-          setContract(agriContract);
+          // Connect to the contract
+          const contractInstance = new ethers.Contract(contractAddress, AgriVerifyABI.abi, signer);
+          setContract(contractInstance);
+          setIsAuthenticated(true);
+          getCertifiedCrops();
         } else {
           alert('MetaMask is not installed. Please install MetaMask.');
         }
@@ -50,88 +37,88 @@ const App = () => {
     connectToMetaMask();
   }, []);
 
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  // Handle crop name input change
+  const handleInputChange = (e) => {
+    setCropName(e.target.value);
   };
 
+  // Submit crop certification
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (contract) {
-      try {
-        const tx = await contract.submitCertification(formData.cropName, formData.farmName, formData.location);
-        await tx.wait();  
-        alert('Certification request submitted!');
+    if (!contract) return;
 
-const imgURL = await QRcode.toDataURL('https://localhost/account/certification/index')
-// img.save('qrcode.png')
-    setCertifications([...certifications, {...formData , img:imgURL}]);
-// img.show()
-        
+    try {
+      const tx = await contract.submitCertification(cropName);  
+      await tx.wait();  // Wait for the transaction to be mined
+      alert(`Crop "${cropName}" has been certified!`);
+      setCropName('');  // Reset input field
 
-        setFormData({ cropName: '', farmName: '', location: '' });
-      } catch (error) {
-        console.error('Error submitting certification:', error);
-      }
+      getCertifiedCrops();
+    } catch (error) {
+      console.error('Error submitting certification:', error);
+    }
+  };
+
+  // Fetch certified crops for the connected user
+  const getCertifiedCrops = async () => {
+    if (!contract) return;
+    
+    try {
+      const crops = await contract.getCropInfo(account);  // Fetch the certified crops for this address
+      console.log("crops: ",crops);
+        // Map and convert BigNumber values (Solidity response headers) to readable numbers
+        const formattedCrops = crops.map((crop) => ({
+          cropId: crop.cropId.toNumber(),
+          name: crop.name,
+          timestamp: new Date(crop.timestamp.toNumber() * 1000).toLocaleString(),// Convert timestamp to human-readable date
+          certified: crop.certified ? 'Yes' : 'No' 
+        }));
+  
+        setCertifiedCrops(formattedCrops);
+    } catch (error) {
+      console.error('Error fetching certified crops:', error);
     }
   };
 
   return (
     <div>
-      <h1>AgriVerify: Farmer Onboarding</h1>
+      <h1>AgriVerify: Decentralized Crop Certification</h1>
       {isAuthenticated ? (
-      <>
-          <p>Account Connected: {account}</p>
+        <div>
+          <p>Connected Account: {account}</p>
+
           <form onSubmit={handleSubmit}>
             <div>
-              <label>Crop Name: </label>
+              <label>Crop Name:</label>
               <input
                 type="text"
-                name="cropName"
-                value={formData.cropName}
-                onChange={handleChange}
+                value={cropName}
+                onChange={handleInputChange}
                 required
               />
             </div>
-            <div>
-              <label>Farmer Name: </label>
-              <input
-                type="text"
-                name="farmName"
-                value={formData.farmName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Location: </label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit">Request Certification</button>
+            <button type="submit">Submit Crop for Certification</button>
           </form>
-          <div>
-          <h2>Certified Crops</h2>
-          {certifications.map((cert, index) => (
-            <div key={index}>
-              <p><strong>Crop Name:</strong> {cert.cropName}</p>
-              <p><strong>Farmer Name:</strong> {cert.farmName}</p>
-              <p><strong>Location:</strong> {cert.location}</p>
-              <p><strong>QR Code:</strong> <img src={cert.img} alt="QR Code" /></p>
-            </div>
-          ))}
-          </div>
-      </>
+
+          <h2>Your Certified Crops</h2>
+          {certifiedCrops.length > 0 ? (
+            <ul>
+              {certifiedCrops.map((crop, index) => (
+                <li key={index}>
+                  <strong>Crop Name:</strong> {crop.name} <br />
+                  <strong>Crop ID:</strong> {crop.cropId} <br />
+                  <strong>Certified:</strong> {crop.certified} <br />
+                  <strong>Timestamp:</strong> {new Date(crop.timestamp * 1000).toLocaleString()} <br />
+                  <hr />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No certified crops found.</p>
+          )}
+        </div>
       ) : (
-        <p>Connecting to Hardhat Network...</p>
+        <p>Please connect to MetaMask.</p>
       )}
     </div>
   );

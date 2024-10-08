@@ -1,25 +1,23 @@
-const hre = require("hardhat");
-
+// scripts/deploy.js
 async function main() {
-        
-    await hre.run('compile'); //compiled?
-
     // Get the contract factory
-    const AgriVerify = await hre.ethers.getContractFactory("AgriVerify");
-
+    const AgriVerify = await ethers.getContractFactory("AgriVerify");
+  
     // Deploy the contract
     const agriVerify = await AgriVerify.deploy();
-
-    // Wait for the deployment to finish
+  
+    // Wait for the contract to be deployed
     await agriVerify.deployed();
+  
+    // Log the address of the deployed contract
     console.log("AgriVerify deployed to:", agriVerify.address);
-
-    // saveFrontendFiles(agriVerify);
-}
-
-main()
+  }
+  
+  // Error handling and running the main function
+  main()
     .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
+    .catch(error => {
+      console.error(error);
+      process.exit(1);
     });
+  
