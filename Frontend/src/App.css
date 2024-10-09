@@ -1,42 +1,332 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* General container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f4f4f9, #e6e9f0);
+  font-family: 'Arial', sans-serif;
+  position: relative;  /* For floating coins */
+  overflow: hidden;    /* Prevent coins from overflowing */
+}
+
+/* Floating coins */
+.floating-coin {
+  position: absolute;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.floating-coin:nth-child(1) {
+  left: 10%;
+  top: 20%;
+  animation-duration: 4s;
+}
+
+.floating-coin:nth-child(2) {
+  left: 70%;
+  top: 50%;
+  animation-duration: 5s;
+}
+
+.floating-coin:nth-child(3) {
+  left: 40%;
+  top: 80%;
+  animation-duration: 6s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Title and sub-title */
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2c3e50; /* Dark color for better contrast */
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sub-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+/* Card container for connected account and certified crops */
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+/* Form elements styling */
+.label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  background-color: #3498db;
+  color: white;
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+.button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Message box styling for success or error */
+.message {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.success {
+  background-color: #2ecc71;
+  color: white;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.error {
+  background-color: #e74c3c;
+  color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Crop list styling */
+.crop-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.crop-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.crop-item p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Add this CSS to style the grid layout */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.title, .sub-title {
+  text-align: center;
 }
 
 .card {
-  padding: 2em;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.read-the-docs {
-  color: #888;
+.crop-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 20px; /* Space between the grid items */
+  list-style-type: none;
+  padding: 0;
+}
+
+.crop-item {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.connected {
+  margin-bottom: 20px;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+/* Inch-like dark-themed Dapp UI */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #1A1A1A;  /* Dark background */
+  color: #ffffff;
+  padding: 20px;
+}
+
+.inch-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #f1f1f1;
+}
+
+.connected {
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #2A2A2A;  /* Slightly lighter dark background */
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card {
+  background-color: #333333;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.label {
+  font-size: 1rem;
+  color: #bbbbbb;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #555555;
+  background-color: #222222;
+  color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #e52e71 0%, #ff802e 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background: linear-gradient(90deg, #ff802e 0%, #e52e71 100%);
+}
+
+.message {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.success {
+  color: #4CAF50;
+}
+
+.error {
+  color: #FF5252;
+}
+
+.sub-title {
+  font-size: 1.4rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #dddddd;
+}
+
+.crop-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.crop-card {
+  background-color: #444444;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.crop-card p {
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+
+.crop-card strong {
+  color: #ffffff;
 }

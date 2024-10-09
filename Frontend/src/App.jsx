@@ -1,17 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import AgriVerifyABI from './contracts/AgriVerify.json';  // Import the ABI of the deployed contract
-
+import './App.css';  // Import the new Inch-style CSS
+import QRcode from 'qrcode';
 const App = () => {
-  const [account, setAccount] = useState('');        
-  const [contract, setContract] = useState(null);    
-  const [cropName, setCropName] = useState('');      
-  const [certifiedCrops, setCertifiedCrops] = useState([]);  // To store the list of certified crops
-  const [isAuthenticated, setIsAuthenticated] = useState(false); 
-  // Deployed contract address (Replace with your actual deployed contract address)
+  const [account, setAccount] = useState('');
+  const [contract, setContract] = useState(null);
+  const [cropName, setCropName] = useState('');
+  const [certifiedCrops, setCertifiedCrops] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+
   const contractAddress = '0x2fD926D5eF17514F8a7F4A7b41fd2904e1d97fA5';
 
-  // MetaMask Connection
+  const handleInputChange = (e) => {
+    setCropName(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!contract) return;
+
+    setLoading(true);
+    try {
+      const tx = await contract.submitCertification(cropName);
+      await tx.wait();
+      setMessage(`Crop "${cropName}" has been certified!`);
+      setCropName('');
+      getCertifiedCrops();
+    } catch (error) {
+      setMessage('Error submitting certification.');
+      console.error('Error submitting certification:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getCertifiedCrops = async () => {
+    if (!contract) return;
+    try {
+      const crops = await contract.getCropInfo(account);
+      const formattedCrops = crops.map((crop) => ({
+        cropId: crop.cropId.toNumber(),
+        name: crop.name,
+        timestamp: new Date(crop.timestamp.toNumber() * 1000).toLocaleString(),
+        certified: crop.certified ? 'Yes' : 'No',
+      }))
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      setCertifiedCrops(formattedCrops);
+    } catch (error) {
+      console.error('Error fetching certified crops:', error);
+    }
+  };
+
   useEffect(() => {
     const connectToMetaMask = async () => {
       try {
@@ -21,11 +63,9 @@ const App = () => {
           const address = await signer.getAddress();
           setAccount(address);
 
-          // Connect to the contract
           const contractInstance = new ethers.Contract(contractAddress, AgriVerifyABI.abi, signer);
           setContract(contractInstance);
           setIsAuthenticated(true);
-          getCertifiedCrops();
         } else {
           alert('MetaMask is not installed. Please install MetaMask.');
         }
@@ -35,91 +75,56 @@ const App = () => {
     };
 
     connectToMetaMask();
+    getCertifiedCrops();
   }, []);
 
-  // Handle crop name input change
-  const handleInputChange = (e) => {
-    setCropName(e.target.value);
-  };
-
-  // Submit crop certification
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!contract) return;
-
-    try {
-      const tx = await contract.submitCertification(cropName);  
-      await tx.wait();  // Wait for the transaction to be mined
-      alert(`Crop "${cropName}" has been certified!`);
-      setCropName('');  // Reset input field
-
-      getCertifiedCrops();
-    } catch (error) {
-      console.error('Error submitting certification:', error);
-    }
-  };
-
-  // Fetch certified crops for the connected user
-  const getCertifiedCrops = async () => {
-    if (!contract) return;
-    
-    try {
-      const crops = await contract.getCropInfo(account);  // Fetch the certified crops for this address
-      console.log("crops: ",crops);
-        // Map and convert BigNumber values (Solidity response headers) to readable numbers
-        const formattedCrops = crops.map((crop) => ({
-          cropId: crop.cropId.toNumber(),
-          name: crop.name,
-          timestamp: new Date(crop.timestamp.toNumber() * 1000).toLocaleString(),// Convert timestamp to human-readable date
-          certified: crop.certified ? 'Yes' : 'No' 
-        }));
-  
-        setCertifiedCrops(formattedCrops);
-    } catch (error) {
-      console.error('Error fetching certified crops:', error);
-    }
-  };
-
   return (
-    <div>
-      <h1>AgriVerify: Decentralized Crop Certification</h1>
-      {isAuthenticated ? (
-        <div>
-          <p>Connected Account: {account}</p>
+    <div className="inch-app">
+      <header className="header">
+        <h1>AgriVerify - Decentralized Crop Certification</h1>
+        <p className="connected"><strong>Connected Account:</strong> {account}</p>
+      </header>
 
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Crop Name:</label>
+      <div className="form-container">
+        {isAuthenticated ? (
+          <div className="card">
+            <form onSubmit={handleSubmit} className="cert-form">
+              <label htmlFor="cropName" className="label">Crop Name:</label>
               <input
+                id="cropName"
                 type="text"
                 value={cropName}
                 onChange={handleInputChange}
+                className="input-field"
                 required
               />
-            </div>
-            <button type="submit">Submit Crop for Certification</button>
-          </form>
+              <button type="submit" className="submit-button" disabled={loading}>
+                {loading ? 'Certifying...' : 'Submit Crop for Certification'}
+              </button>
+            </form>
+            
+            {message && (
+              <div className={`message ${message.includes('Error') ? 'error' : 'success'}`}>
+                {message}
+              </div>
+            )}
 
-          <h2>Your Certified Crops</h2>
-          {certifiedCrops.length > 0 ? (
-            <ul>
+            <h2 className="sub-title">Your Certified Crops</h2>
+            <div className="crop-list">
               {certifiedCrops.map((crop, index) => (
-                <li key={index}>
-                  <strong>Crop Name:</strong> {crop.name} <br />
-                  <strong>Crop ID:</strong> {crop.cropId} <br />
-                  <strong>Certified:</strong> {crop.certified} <br />
-                  <strong>Timestamp:</strong> {new Date(crop.timestamp * 1000).toLocaleString()} <br />
-                  <hr />
-                </li>
+                <div key={index} className="crop-card">
+                  <p><strong>Crop Name:</strong> {crop.name}</p>
+                  <p><strong>Crop ID:</strong> {crop.cropId}</p>
+                  <p><strong>Certified:</strong> {crop.certified}</p>
+                  <p><strong>Timestamp:</strong> {crop.timestamp}</p>
+                </div>
               ))}
-            </ul>
-          ) : (
-            <p>No certified crops found.</p>
-          )}
-        </div>
-      ) : (
-        <p>Please connect to MetaMask.</p>
-      )}
+            </div>
+          </div>
+        ) : (
+          <p>Please connect to MetaMask.</p>
+        )}
+      </div>
     </div>
   );
 };
