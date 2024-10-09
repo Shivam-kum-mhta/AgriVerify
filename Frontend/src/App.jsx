@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import AgriVerifyABI from './contracts/AgriVerify.json';  // Import the ABI of the deployed contract
-import './App.css';  // Import the new Inch-style CSS
-import QRcode from 'qrcode';
+import AgriVerifyABI from './contracts/AgriVerify.json'; // Import the ABI of the deployed contract
+import './App.css'; // Import the new Inch-style CSS
+import QRcode from 'qrcode'; // Import the QR code library
+
 const App = () => {
   const [account, setAccount] = useState('');
   const [contract, setContract] = useState(null);
@@ -28,7 +29,7 @@ const App = () => {
       await tx.wait();
       setMessage(`Crop "${cropName}" has been certified!`);
       setCropName('');
-      getCertifiedCrops();
+      getCertifiedCrops(); // Refresh the certified crops
     } catch (error) {
       setMessage('Error submitting certification.');
       console.error('Error submitting certification:', error);
@@ -37,17 +38,33 @@ const App = () => {
     }
   };
 
+  // GET CERTIFIED CROPS
   const getCertifiedCrops = async () => {
     if (!contract) return;
+
     try {
       const crops = await contract.getCropInfo(account);
-      const formattedCrops = crops.map((crop) => ({
-        cropId: crop.cropId.toNumber(),
-        name: crop.name,
-        timestamp: new Date(crop.timestamp.toNumber() * 1000).toLocaleString(),
-        certified: crop.certified ? 'Yes' : 'No',
-      }))
-      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      const formattedCrops = await Promise.all(
+        crops.map(async (crop) => {
+          const cropId = crop.cropId.toNumber();
+          const name = crop.name;
+          const timestamp = new Date(crop.timestamp.toNumber() * 1000).toLocaleString();
+          const certified = crop.certified ? 'Yes' : 'No';
+
+          // Generate the QR code data URL
+          const imgURL = await QRcode.toDataURL(`https://localhost/account/certification/${account}/${cropId}`);
+
+          // Return the formatted crop with QR code URL
+          return {
+            cropId,
+            name,
+            timestamp,
+            certified,
+            img: imgURL // Include the QR code image URL
+          };
+        })
+      );
+
       setCertifiedCrops(formattedCrops);
     } catch (error) {
       console.error('Error fetching certified crops:', error);
@@ -102,7 +119,7 @@ const App = () => {
                 {loading ? 'Certifying...' : 'Submit Crop for Certification'}
               </button>
             </form>
-            
+
             {message && (
               <div className={`message ${message.includes('Error') ? 'error' : 'success'}`}>
                 {message}
@@ -117,6 +134,7 @@ const App = () => {
                   <p><strong>Crop ID:</strong> {crop.cropId}</p>
                   <p><strong>Certified:</strong> {crop.certified}</p>
                   <p><strong>Timestamp:</strong> {crop.timestamp}</p>
+                  <img src={crop.img} alt={`QR Code for ${crop.name}`} style={{ marginTop: '10px' }} />
                 </div>
               ))}
             </div>
