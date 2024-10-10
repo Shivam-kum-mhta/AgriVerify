@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@metamask/detect-provider": "^2.0.0",
+    "@pushprotocol/restapi": "^1.7.28",
+    "buffer": "^6.0.3",
     "dotenv": "^16.4.5",
     "ethers": "^5.7.2",
+    "events": "^3.3.0",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.0.1",
     "react": "^18.3.1",
