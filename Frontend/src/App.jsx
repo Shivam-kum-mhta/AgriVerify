@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Home from './Home'; // Import the Home component
+import Home from './Home'; 
 import Certifications from './Certifications'; // Import the Certifications component
 import AgriVerifyABI from './contracts/AgriVerify.json'; // Import the ABI of the deployed contract
 import './App.css'; // Import the CSS
 import Show from './Show';
 import { ethers } from 'ethers';
-import Navbar from './Navbar'; // Import the Navbar component
+import Navbar from './Navbar'; 
 import pushimage from '../images/PUSHPROTOCOL.png'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 const App = () => {

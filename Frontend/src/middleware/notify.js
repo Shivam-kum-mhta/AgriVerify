@@ -8,7 +8,8 @@ const getCurrentTime = () => {
 };
 
 async function sendPushNotification(recipient, crop) {
-  const privateKey = '1ee3c774ec7e62bfeb71d867fc205fa80d8ba363dc56804932ce71c7516ee9dd'; // Load private key from environment variables
+  const privateKey = import.meta.env.VITE_PRIVATE_KEY;
+  // Load private key from environment variables
   const signer = new Wallet(privateKey);
 
   console.log('PushAPI object:', PushAPI); // Log the PushAPI object

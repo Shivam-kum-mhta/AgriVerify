@@ -18,6 +18,7 @@ const Certifications = ({ account, contract }) => {
 
     setLoading(true);
     try {
+      //Submit for CERTIFICATION
       const tx = await contract.submitCertification(cropName);
       await tx.wait();
       await sendPushNotification(account, cropName);

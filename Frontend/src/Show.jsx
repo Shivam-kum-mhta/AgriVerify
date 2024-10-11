@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ethers } from 'ethers';
-import AgriVerifyABI from './contracts/AgriVerify.json'; // Adjust the path as necessary
+import AgriVerifyABI from './contracts/AgriVerify.json'; 
 
 const Show = () => {
   const { account, cropId } = useParams(); // Get the account and cropId from URL params
   const [cropDetails, setCropDetails] = useState(null);
   const [error, setError] = useState(null);
 
-  // WARNING: DO NOT EXPOSE PRIVATE KEYS IN PRODUCTION CODE. Use environment variables instead.
+
   const privateKey = import.meta.env.VITE_PRIVATE_KEY;
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Show = () => {
         const crops = await contract.getCropInfo(account);
         const crop = crops.find((crop) => crop.cropId.toNumber() === parseInt(cropId, 10)); // Match the cropId
 
-        // If the crop exists, set its details
+        // If the cropID exists, set its details
         if (crop) {
           setCropDetails({
             name: crop.name,
@@ -45,7 +45,7 @@ const Show = () => {
     };
 
     fetchCropDetails();
-  }, [account, cropId, privateKey]); // Dependencies: re-run when account, cropId, or privateKey changes
+  }, [account, cropId, privateKey]); 
 
   if (error) {
     return <div style={styles.error}>{error}</div>;

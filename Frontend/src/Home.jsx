@@ -6,12 +6,13 @@ const Home = ({account, connectToWallet}) => {
   const [copyText, setCopyText] = useState('Copy');
 
   const copyToClipboard = () => {
+    // Copy the channel address to the clipboard
     navigator.clipboard.writeText('0x63b1A4aE31409221fD0e9272b49D490CB52960bb')
       .then(() => {
         setCopyText('Copied!');
         setTimeout(() => {
           setCopyText('Copy');
-        }, 2000); // Hide success message after 2 seconds
+        }, 2000); 
       })
       .catch(() => {
         setCopyText('Failed to copy');
@@ -46,7 +47,7 @@ const Home = ({account, connectToWallet}) => {
               <button className="copy-button" onClick={copyToClipboard}>{copyText}</button>
             </div>
 
-            {/* Image of Push Protocol Guide */}
+            {/* opt to notifications on pushprotocol -staging*/}
             <div className="image-container">
               <img 
                 src={PushProtocolImage} 
