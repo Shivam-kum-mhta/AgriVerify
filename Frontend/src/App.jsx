@@ -6,6 +6,7 @@ import './App.css'; // Import the CSS
 import Show from './Show';
 import { ethers } from 'ethers';
 import Navbar from './Navbar'; // Import the Navbar component
+import pushimage from '../images/PUSHPROTOCOL.png'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 const App = () => {
   const [account, setAccount] = useState('');
@@ -46,11 +47,7 @@ const App = () => {
     <div className="inch-app">
       <Home
         account={account}
-        setAccount={setAccount}
-        setContract={setContract}
-        setIsAuthenticated={setIsAuthenticated}
-        contractAddress={contractAddress}
-        AgriVerifyABI={AgriVerifyABI}
+        connectToWallet={connectToMetaMask}
       />
 
       {isAuthenticated && (

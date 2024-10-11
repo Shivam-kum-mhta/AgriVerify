@@ -85,3 +85,103 @@
     background-color: #3498db;
   }
   
+  .home-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .description {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 1.75em;
+    color: #34495e;
+    margin-bottom: 20px;
+  }
+  
+  .paragraph {
+    font-size: 1.1em;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+  }
+  
+  .notification-instructions {
+    margin-top: 40px;
+    text-align: left;
+  }
+  
+  .instructions-title {
+    font-size: 1.8em;
+    color: #2980b9;
+    margin-bottom: 10px;
+  }
+  
+  .instructions-subtext {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .instruction-list {
+    list-style-type: decimal;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    font-size: 1.2em;
+  }
+  
+  .instruction-list li {
+    margin-bottom: 10px;
+    color: #34495e;
+  }
+  
+  .copy-address-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .address-text {
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin-right: 20px;
+  }
+  
+  .copy-button {
+    background-color: #2980b9;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+  }
+  
+  .copy-button:hover {
+    background-color: #3498db;
+  }
+  
+  .image-container {
+    margin-top: 20px;
+  }
+  
+  .push-protocol-image {
+    height: 16vh;
+    max-width: 100%;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
