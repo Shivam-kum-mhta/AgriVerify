@@ -1,0 +1,40 @@
+/* Navbar.css */
+.navbar {
+    width: 95vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar-links {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .connect-btn {
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .connect-btn:hover {
+    background-color: #3e8e41;
+    color: #fff;
+  }
+  
+  .navbar-account {
+    font-size: 1rem;
+  }
+  

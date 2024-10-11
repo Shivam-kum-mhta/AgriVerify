@@ -9,7 +9,7 @@ const Show = () => {
   const [error, setError] = useState(null);
 
   // WARNING: DO NOT EXPOSE PRIVATE KEYS IN PRODUCTION CODE. Use environment variables instead.
-  const privateKey = import.meta.env.VITE_PRIVATE_KEY; 
+  const privateKey = import.meta.env.VITE_PRIVATE_KEY;
 
   useEffect(() => {
     const fetchCropDetails = async () => {
@@ -48,21 +48,67 @@ const Show = () => {
   }, [account, cropId, privateKey]); // Dependencies: re-run when account, cropId, or privateKey changes
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return <div style={styles.error}>{error}</div>;
   }
 
   if (!cropDetails) {
-    return <div>Loading crop details...</div>;
+    return <div style={styles.loading}>Loading crop details...</div>;
   }
 
   return (
-    <div className="certification-details">
-      <h2>Crop Certification Details</h2>
-      <p><strong>Crop Name:</strong> {cropDetails.name}</p>
-      <p><strong>Timestamp:</strong> {cropDetails.timestamp}</p>
-      <p><strong>Certified:</strong> {cropDetails.certified}</p>
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h2 style={styles.title}>Crop Certification Details</h2>
+        <p style={styles.detail}><strong>Farmer Address:</strong> {account}</p>
+        <p style={styles.detail}><strong>Crop Name:</strong> {cropDetails.name}</p>
+        <p style={styles.detail}><strong>Timestamp:</strong> {cropDetails.timestamp}</p>
+        <p style={styles.detail}><strong>Certified:</strong> {cropDetails.certified}</p>
+      </div>
     </div>
   );
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    backgroundColor: '#f9fafc',
+    padding: '20px',
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    padding: '30px',
+    maxWidth: '500px',
+    width: '100%',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: '20px',
+  },
+  detail: {
+    fontSize: '18px',
+    color: '#555',
+    marginBottom: '10px',
+  },
+  error: {
+    color: '#ff4d4f',
+    fontSize: '18px',
+    textAlign: 'center',
+    marginTop: '20px',
+  },
+  loading: {
+    fontSize: '18px',
+    color: '#555',
+    textAlign: 'center',
+    marginTop: '20px',
+  },
 };
 
 export default Show;

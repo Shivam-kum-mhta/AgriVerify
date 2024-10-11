@@ -1,0 +1,87 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh; */
+    background-color: #000000;
+    padding: 20px;
+  }
+  
+  .description {
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #16a085;
+    margin-bottom: 20px;
+  }
+  
+  .paragraph {
+    font-size: 18px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+  }
+  
+  .connect-button {
+    background-color: #16a085;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .connect-button:hover {
+    background-color: #1abc9c;
+  }
+  
+  .connected-info {
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .connected-text {
+    font-size: 22px;
+    color: #34495e;
+    margin-bottom: 20px;
+  }
+  
+  .certify-button {
+    background-color: #2980b9;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .certify-button:hover {
+    background-color: #3498db;
+  }
+  

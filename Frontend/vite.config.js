@@ -1,24 +1,30 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { Buffer } from 'buffer'; // Correct import for Buffer
-import { EventEmitter } from 'events'; // Correct import for EventEmitter
-import dotenv from 'dotenv'
-// https://vitejs.dev/config/
-dotenv.config(); // Load environment variables from .env
-
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 
 export default defineConfig({
   plugins: [react()],
-  define: {
-    'global': {}, // Add global definitions if necessary
-    'process.env': {}, // Allow access to process.env in your code
-    Buffer: Buffer, // Correctly provide Buffer for browser compatibility
-    EventEmitter: EventEmitter, // Provide EventEmitter for browser compatibility
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser global polyfills
+      define: {
+        global: 'globalThis',
+      },
+      // Enable esbuild polyfill plugins
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          process: true,
+          buffer: true,
+        }),
+        NodeModulesPolyfillPlugin(),
+      ],
+    },
   },
   resolve: {
     alias: {
-      'buffer': 'buffer/',
-      'events': 'events/',
+      // Polyfill Buffer in the browser
+      buffer: 'buffer',
     },
   },
 });

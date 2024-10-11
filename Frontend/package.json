@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@metamask/detect-provider": "^2.0.0",
     "@pushprotocol/restapi": "^1.7.28",
     "buffer": "^6.0.3",
