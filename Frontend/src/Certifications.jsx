@@ -45,8 +45,8 @@ const Certifications = ({ account, contract }) => {
           const timestamp = new Date(crop.timestamp.toNumber() * 1000).toLocaleString();
           const certified = crop.certified ? 'Yes' : 'No';
 
-          // Generate the QR code data URL
-          const imgURL = await QRcode.toDataURL(`http://localhost:5173/showcertificate/${account}/${cropId}`);
+       // Generate the QR code data URL with dynamic domain
+        const imgURL = await QRcode.toDataURL(`${window.location.origin}/showcertificate/${account}/${cropId}`);
 
           // Return the formatted crop with QR code URL
           return {
