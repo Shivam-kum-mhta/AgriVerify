@@ -1,11 +1,10 @@
 import { ethers } from 'ethers';
 import * as PushAPI from "@pushprotocol/restapi";
 // Define the signer (wallet) to sign and send the notification
-const privateKey = '1ee3c774ec7e62bfeb71d867fc205fa80d8ba363dc56804932ce71c7516ee9dd'; // Replace with your private key
+const privateKey = 'my-wallet-private-key' // Replace with your private key
 const signer = new ethers.Wallet(privateKey);
 // Subscribe user to Push Protocol
-// Subscribe user to Push Protocol
-// Subscribe user to Push Protocol
+
 const subscribeToNotifications = async () => {
   try {
     const subscriptions = await PushAPI.channels.subscribe({
