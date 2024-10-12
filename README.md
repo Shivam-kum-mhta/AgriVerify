@@ -77,7 +77,7 @@ To install and run the project locally:
    ```
    http://localhost:5173
    ```
-
+  - CAUTION: Functionalities like submitcrop and getcrop wont work since u haven't set the .env file yet.
 ---
 
 ## 4. Environment Variables
@@ -85,7 +85,7 @@ To install and run the project locally:
 Create a `.env` file in the `Frontend` directory with the following variables:
 
 ```bash
-VITE_PRIVATE_ADDRESS=<your_wallet_private_address>
+VITE_PRIVATE_KEY=<your_wallet_private_address>
 ```
 
 This setup ensures that the application can connect to the deployed smart contract.
