@@ -153,6 +153,8 @@ Users can subscribe to AgriVerify notifications to get updates using the Push Pr
 1. Visit the Push Protocol Staging website: [Push Protocol Staging](https://staging.push.org/channels).
 2. Search for the AgriVerify channel using the channel address. Channel Address is `<0x63b1A4aE31409221fD0e9272b49D490CB52960bb>`.
 3. Opt-in to notifications.
+- Demo Notification:
+- ![image](https://github.com/user-attachments/assets/e540c987-f896-4e69-901c-729e36d43526)
 
 <!-- You can create your own channel at [https://staging.push.org/channel/create](https://staging.push.org/channel/create). -->
 
