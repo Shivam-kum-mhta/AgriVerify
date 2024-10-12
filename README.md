@@ -1,5 +1,3 @@
----
-
 # AgriVerify Documentation
 
 **AgriVerify** is a decentralized platform that allows farmers to certify their organic produce using blockchain technology. It ensures trust and transparency in the certification of organic crops, providing consumers the ability to verify the authenticity of the crops they purchase.
@@ -231,7 +229,7 @@ Here’s a comprehensive list of resources that can help you while working on **
 
 ## 11. Contributing:
 
-   As AgriVerify is in its very initial stages, any and all contributions would be highly appreciated. The Implementation of NFT's can be done to initiate ownership transfer. The IPFS implementation can be done to store metadata off-chain.
-   Feel free to reach out if you need assistance or clarification on any part of the project.
-   Thank you for using AgriVerify! If you have any questions or need further assistance, please reach out to me [Gmail](shivamkumara231it068@nitk.edu.in).
+- As AgriVerify is in its very initial stages, any and all contributions would be highly appreciated. The Implementation of NFT's can be done to initiate ownership transfer. The IPFS implementation can be done to store metadata off-chain.
+- Feel free to reach out if you need assistance or clarification on any part of the project.
+- Thank you for using AgriVerify! If you have any questions or need further assistance, please reach out to me [Gmail](shivamkumara231it068@nitk.edu.in).
 ---
