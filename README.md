@@ -2,6 +2,15 @@
 
 **AgriVerify** is a decentralized platform that allows farmers to certify their organic produce using blockchain technology. It ensures trust and transparency in the certification of organic crops, providing consumers the ability to verify the authenticity of the crops they purchase.
 
+## Demo
+
+- Try Out: [AgriVerify Demo](https://agri-verify-rvsq.vercel.app/)
+- Video Demo: [AgriVerify Video Demo](https://drive.google.com/file/d/14vpxaX3pX096hbOhdwXPaQKeV7Z7_gth/view?usp=sharing)
+
+## Architecture Diagram
+
+![AgriVerify Architecture](AssetsforReadme/AgriVerifyArchitecture.jpeg)
+
 ---
 
 ## Table of Contents
@@ -22,17 +31,6 @@
 9. [Technologies Used](#technologies-used)
 10. [Resources Used](#resources-used)
 11. [Contributing](#contributing)
-
----
-
-## Demo
-
-- Try Out: [AgriVerify Demo](https://agri-verify-rvsq.vercel.app/)
-- Video Demo: [AgriVerify Video Demo](https://drive.google.com/file/d/14vpxaX3pX096hbOhdwXPaQKeV7Z7_gth/view?usp=sharing)
-
-## Architecture Diagram
-
-![AgriVerify Architecture](AssetsforReadme/AgriVerifyArchitecture.jpeg){: height="900" }
 
 ---
 
@@ -79,7 +77,6 @@ To install and run the project locally:
    ```
    http://localhost:5173
    ```
-
 ---
 
 ## 4. Environment Variables
@@ -143,7 +140,7 @@ const imgURL = await QRcode.toDataURL(`https://agri-verify-rvsq.vercel.app//show
 ```
 
 Demo QR Code:  
-![QR Code Sample](AssetsforReadme/QRsample.png){: width="250" }
+![QR Code Sample](AssetsforReadme/QRsample.png)
 
 ### 6.4 Subscribing to Notifications
 
@@ -157,7 +154,6 @@ Users can subscribe to AgriVerify notifications to get updates using the Push Pr
 
 <!-- You can create their own channel at [https://staging.push.org/channel/create](https://staging.push.org/channel/create). -->
 
-Demo Notification on mobile devices: ![alt text](AssetsforReadme/QRsample.png){: height='500'}
 ---
 
 ## 7. Routes
@@ -235,6 +231,5 @@ Here’s a comprehensive list of resources that can help you while working on **
 
 As **AgriVerify** is in its very initial stages, any and all contributions would be highly appreciated. The Implementation of NFT's can be done to initiate ownership transfer. The IPFS implementation can be done to store metadata off-chain.
 Feel free to reach out if you need assistance or clarification on any part of the project.
-
 Thank you for using **AgriVerify**! If you have any questions or need further assistance, please reach out to me [Gmail](shivamkumara231it068@nitk.edu.in).
 ---
