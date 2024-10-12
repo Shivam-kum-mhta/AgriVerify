@@ -5,7 +5,7 @@
 ## Demo
 
 - Try Out: [AgriVerify Demo](https://agri-verify-rvsq.vercel.app/)
-- Video Demo: [AgriVerify Video Demo](https://drive.google.com/file/d/14vpxaX3pX096hbOhdwXPaQKeV7Z7_gth/view?usp=sharing)
+- Video Demo: [AgriVerify Video Demo](https://drive.google.com/file/d/1C-Z2L5RDv4kTGLFF6paw6PRSCIQHuuAI/view?usp=sharing).
 
 ## Architecture Diagram
 
