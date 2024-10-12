@@ -30,7 +30,7 @@ This documentation will cover the setup, usage, and features of the AgriVerify p
 
 ## Demo
 Try Out: [https://agri-verify-rvsq.vercel.app/](https://agri-verify-rvsq.vercel.app/).
-<video controls src="Demo.mp4" title="Title"></video>
+Video Demo: [https://drive.google.com/file/d/14vpxaX3pX096hbOhdwXPaQKeV7Z7_gth/view?usp=sharing](https://drive.google.com/file/d/14vpxaX3pX096hbOhdwXPaQKeV7Z7_gth/view?usp=sharing).
 
 ## 1. Getting Started
 
@@ -151,10 +151,7 @@ Users can subscribe to AgriVerify notifications to get updates using the Push Pr
 3. Opt-in to notifications.
 
 <!-- You can create their own channel at [https://staging.push.org/channel/create](https://staging.push.org/channel/create). -->
-
-```jsx
-<img src={PushProtocolImage} alt="Notification Subscription Guide" />
-```
+Demo QRCode: ![alt text](AssetsforReadme/QRsample.png)
 
 ## 7. Routes
 
@@ -185,17 +182,51 @@ For deploying to Vercel, follow these steps:
 - **Hardhat**: For testing, compiling and deploying smart contracts
 - **Miscellaneous**: Postman(api testing), Remix(for testing smart contracts), Google Lens (scanning QR codes).
 
-## 10. Resources Used
-Hardhat Documentation
-QR Code Generation with JavaScript
-Push Protocol Guide
-Push Protocol Tutorials
-OpenZeppelin Contracts Wizard - Easily create custom ERC20 and ERC721 contracts
-Solidity by Example - Learn Solidity with simple, practical examples
-How to Build a Blockchain App with Ethereum - Step-by-step tutorial on creating a dApp
 
-## 11. Contributing
-You are welcome to contribute to AgriVerify
----
+### 10. Referred Resources
 
-Thank you for using **AgriVerify**! If you have any questions or need further assistance, please reach out via my [support channels](shivamkumara231it068@nitk.edu.in).
+Here’s a comprehensive list of resources that can help you while working on **AgriVerify** or any similar projects:
+
+#### Working with Hardhat:
+- **Set Up a Local Testnet with Hardhat**: A step-by-step guide on setting up a local testnet using Hardhat for Ethereum development.
+  - [Medium Article](https://medium.com/@layne_celeste/set-up-a-local-testnet-with-hardhat-6ff64494b047)
+  - [YouTube Tutorial](https://youtu.be/yD3BsYlRLA4?si=oVkmzimOXQw9pJpQ)
+
+#### Sample Dapp Projects for Reference:
+- **Millow (Real Estate Dapp)**: A good example of a decentralized real estate application built with Hardhat and React. Useful for understanding smart contract interactions in a real-world context.
+  - [GitHub Repository](https://github.com/dappuniversity/millow/blob/master/README.md)
+  - [YouTube Walkthrough](https://youtu.be/nNUpA0d6CFo?si=V2EwiXK-5XwxKYjg)
+
+- **Hardhat + ReactJS Tutorial**: A full tutorial to guide you through the process of connecting Hardhat with a ReactJS frontend.
+  - [GitHub Repository](https://github.com/davidrazmadzeExtra/Hardhat_ReactJS_Tutorial)
+
+- **ChaiDapp**: A decentralized application for social media built with Solidity and Hardhat, a good reference for integrating decentralized features.
+  - [YouTube Tutorial](https://youtu.be/CdUDHj2i01Y?si=ci76UECM1OicbBte)
+  - [GitHub Repository](https://github.com/kshitijofficial/chaiDapp)
+
+#### Push Protocol Guide:
+- **Push Protocol SDK and REST API**: Detailed documentation and guides on how to use Push Protocol for decentralized communication services.
+  - [Getting Started Guide](https://medium.com/push-protocol/getting-started-with-push-sdk-rest-api-%EF%B8%8F-821e5b8389cc)
+  - [Official Documentation](https://push.org/docs/)
+
+#### QR Code Generation with JavaScript:
+- **QR Code Generation**: An NPM package that simplifies the process of generating QR codes in your JavaScript-based applications.
+  - [npm QR Code Package](https://www.npmjs.com/package/qrcode)
+
+#### Solidity:
+- **CryptoZombies**: A fun, interactive, and free tutorial that teaches you Solidity by building your own crypto-collectible game.
+  - [CryptoZombies Solidity Course](https://cryptozombies.io/en/solidity)
+
+#### Ethers.js:
+- **Ethers.js Documentation**: The official documentation for Ethers.js, a popular JavaScript library for interacting with the Ethereum blockchain.
+  - [Ethers.js Docs](https://docs.ethers.org/v5/getting-started/)
+
+### 11. Contributing
+Contributions to **AgriVerify** are always welcome. Whether it's through bug fixes, new features, or even improving the documentation, we would appreciate your involvement. To contribute:
+- Fork the repository.
+- Create a branch for your feature or bug fix.
+- Submit a pull request explaining your changes.
+
+Feel free to reach out if you need assistance or clarification on any part of the project.
+
+Thank you for using **AgriVerify**! If you have any questions or need further assistance, please reach out to me [Gmail](shivamkumara231it068@nitk.edu.in).
