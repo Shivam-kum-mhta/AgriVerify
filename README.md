@@ -1,3 +1,5 @@
+---
+
 # AgriVerify Documentation
 
 **AgriVerify** is a decentralized platform that allows farmers to certify their organic produce using blockchain technology. It ensures trust and transparency in the certification of organic crops, providing consumers the ability to verify the authenticity of the crops they purchase.
@@ -15,22 +17,22 @@
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started)
-2. [Features](#features)
-3. [Installation](#installation)
-4. [Environment Variables](#environment-variables)
-5. [Directory Structure](#directory-structure)
-6. [Usage](#usage)
-   - [MetaMask Connection](#metamask-connection)
-   - [Certifying Crops](#certifying-crops)
-   - [QR Code Generation](#qr-code-generation)
-   - [Subscribing to Notifications](#subscribing-to-notifications)
-7. [Routes](#routes)
-8. [Deployment](#deployment)
-   - [Vercel Deployment](#vercel-deployment)
-9. [Technologies Used](#technologies-used)
-10. [Resources Used](#resources-used)
-11. [Contributing](#contributing)
+1. [Getting Started](#1-getting-started)
+2. [Features](#2-features)
+3. [Installation](#3-installation)
+4. [Environment Variables](#4-environment-variables)
+5. [Directory Structure](#5-directory-structure)
+6. [Usage](#6-usage)
+   - [MetaMask Connection](#61-metamask-connection)
+   - [Certifying Crops](#62-certifying-crops)
+   - [QR Code Generation](#63-qr-code-generation)
+   - [Subscribing to Notifications](#64-subscribing-to-notifications)
+7. [Routes](#7-routes)
+8. [Deployment](#8-deployment)
+   - [Vercel Deployment](#81-vercel-deployment)
+9. [Technologies Used](#9-technologies-used)
+10. [Resources Used](#10-resources-used)
+11. [Contributing](#11-contributing)
 
 ---
 
@@ -77,6 +79,7 @@ To install and run the project locally:
    ```
    http://localhost:5173
    ```
+
 ---
 
 ## 4. Environment Variables
@@ -112,7 +115,7 @@ AgriVerify/
 │   └── vite.config.js
 ```
 
-- **Hardhat/**: For smart contract compilation, testing, and deployment.
+- **Hardhat/**: For smart contract compilation, testing, and deployment. [/Hardhat Readme.md](https://github.com/Shivam-kum-mhta/AgriVerify/tree/main/Hardhat)
 - **Frontend/**: Contains the UI to interact with the smart contract.
 - **Frontend/src/contracts**: Contains the ABI of AgriVerify.
 - **Frontend/vite.config.js**: Vite configuration for development and production builds.
@@ -144,15 +147,14 @@ Demo QR Code:
 
 ### 6.4 Subscribing to Notifications
 
-
 Users can subscribe to AgriVerify notifications to get updates using the Push Protocol (Push Protocol Staging for testnets).
 
 #### Instructions:
 1. Visit the Push Protocol Staging website: [Push Protocol Staging](https://staging.push.org/channels).
-2. Search for the AgriVerify channel using the channel address. Channel Adress is <0x63b1A4aE31409221fD0e9272b49D490CB52960bb>
+2. Search for the AgriVerify channel using the channel address. Channel Address is `<0x63b1A4aE31409221fD0e9272b49D490CB52960bb>`.
 3. Opt-in to notifications.
 
-<!-- You can create their own channel at [https://staging.push.org/channel/create](https://staging.push.org/channel/create). -->
+<!-- You can create your own channel at [https://staging.push.org/channel/create](https://staging.push.org/channel/create). -->
 
 ---
 
@@ -227,9 +229,9 @@ Here’s a comprehensive list of resources that can help you while working on **
 
 ---
 
-## 11. Contributing
+## 11. Contributing:
 
-As **AgriVerify** is in its very initial stages, any and all contributions would be highly appreciated. The Implementation of NFT's can be done to initiate ownership transfer. The IPFS implementation can be done to store metadata off-chain.
-Feel free to reach out if you need assistance or clarification on any part of the project.
-Thank you for using **AgriVerify**! If you have any questions or need further assistance, please reach out to me [Gmail](shivamkumara231it068@nitk.edu.in).
+   As AgriVerify is in its very initial stages, any and all contributions would be highly appreciated. The Implementation of NFT's can be done to initiate ownership transfer. The IPFS implementation can be done to store metadata off-chain.
+   Feel free to reach out if you need assistance or clarification on any part of the project.
+   Thank you for using AgriVerify! If you have any questions or need further assistance, please reach out to me [Gmail](shivamkumara231it068@nitk.edu.in).
 ---
