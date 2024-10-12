@@ -4,10 +4,11 @@
 
 ## Demo
 
+
+- Video Demo: [AgriVerify Video Demo](https://drive.google.com/file/d/1C-Z2L5RDv4kTGLFF6paw6PRSCIQHuuAI/view?usp=sharing).
 - Try Out: [AgriVerify Demo](https://agri-verify-rvsq.vercel.app/)
 - ![image](https://github.com/user-attachments/assets/d781b7c8-f795-42ab-9532-751cae5fd6df)
 
-- Video Demo: [AgriVerify Video Demo](https://drive.google.com/file/d/1C-Z2L5RDv4kTGLFF6paw6PRSCIQHuuAI/view?usp=sharing).
 
 ## Architecture Diagram
 
